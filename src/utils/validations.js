@@ -5,10 +5,11 @@
  * @returns {string} - The first name extracted from the full name, or the name itself if no blank space is found.
  */
 function firstName(fullName) {
-  const blankSpace = fullName.lastIndexOf(' ');
+  const nameWithTrim = fullName.trim();
+  const blankSpace = nameWithTrim.indexOf(" ");
 
-  if (blankSpace === -1) return fullName;
-  else return fullName.slice(0, blankSpace);
+  if (blankSpace === -1) return nameWithTrim;
+  else return nameWithTrim.slice(0, blankSpace);
 }
 
 /**
@@ -29,7 +30,7 @@ function verifyStockAvailability(productType, qty) {
   };
 
   const availableStock = stock[productType];
-  if (availableStock === 0) return false;
+  if (availableStock === undefined || availableStock < qty) return false;
   else return true;
 }
 
@@ -50,7 +51,7 @@ function verifyStockAvailability(productType, qty) {
 function calculateTotalPrice(products) {
   let total = 0;
   for (let i = 0; i < products.length; i++) {
-    total = products[i].price;
+    total += products[i].price * products[i].quantity;
   }
   return total;
 }
